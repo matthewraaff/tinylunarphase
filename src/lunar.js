@@ -45,20 +45,24 @@ const phasesObject = {
  * @param {Date} date  The date object to convert.
  * @returns {number}   The julian date.
  */
-const getJulianDate = (date = new Date()) => (date.getTime() / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5;
+function getJulianDate(date) {
+  return (date.getTime() / 86400000) - (date.getTimezoneOffset() / 1440) + 2440587.5;
+}
 
 /**
  * Get the age of the moon.
  * @returns {number}   The age of the moon.
  */
-const ageOfMoon = (date = new Date()) => { return (getJulianDate(date) - 2451550.1) % lunarMonth };
+function ageOfMoon(date) {
+  return (getJulianDate(date) - 2451550.1) % lunarMonth;
+}
 
 /**
  * Get the moon phase.
  * @param {Date} date  The date object to get the moon phase for.
  * @returns {object}   The moon phase in the Object/dict. (Pythonic word spotted :siren:)
  */
-const getMoonPhase = (date = new Date()) => {
+function getMoonPhase (date = new Date()) {
   const phase = Math.floor((ageOfMoon(date) / lunarMonth) * 8) % 8;
   return phasesObject[phase] || "Oops";
 };
